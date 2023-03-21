@@ -53,17 +53,23 @@ class UserController extends Controller
            
             $user = User::find($id);
 
-            $data = $request->validate(['name' => 'unique:users']);
+            if($request->name){
+                $data = $request->validate(['name' => 'unique:users']);
 
-            $user -> name = $data['name'];
+                $user -> name = $data['name'];
 
-            $user->save();
+                $user->save();
 
+                    return response()->json([
+                        'message' => 'user updated',
+                        'user' => $user,
+                        'status' => 200
+                    ]);
+            }else{
                 return response()->json([
-                    'message' => 'user updated',
-                    'user' => $user,
-                    'status' => 200
+                    'message' => 'Input name failed'
                 ]);
+            }
         }else {
             return response()->json([
                 'message' => 'Unauthorized'
