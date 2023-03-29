@@ -21,7 +21,7 @@ Route::middleware('auth:api')->group( function () {
     Route::post('/logout',[AuthController::class, 'logout']);
     //Route::get('/profile',[UserController::class, 'show']);
     Route::put('/players/{id}',[UserController::class, 'rename']);
-    Route::get('/players/{id}/games',[RollDiceController::class, 'index']);
+    Route::get('/players/{id}/games',[RollDiceController::class, 'index'])->name('index');
     Route::post('/players/{id}/games',[RollDiceController::class, 'store']);
     Route::delete('/players/{id}/games',[RollDiceController::class, 'destroy']);
    

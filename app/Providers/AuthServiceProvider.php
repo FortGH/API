@@ -30,7 +30,5 @@ class AuthServiceProvider extends ServiceProvider
              return $user->id == $auth->id;
         });
 
-        
-        
     }
 }

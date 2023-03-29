@@ -100,7 +100,7 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'Ranking' ,
                 'users' => $users2,
-                'average success rate' => $this->averageSuccessRate(),
+                'average success rate' => $this->averageSuccessRate().'%',
                 'status' => 200
             ]);
         } else {
@@ -121,8 +121,8 @@ class UserController extends Controller
 
         if (isset($users2)) {
             return response()->json([
-                'message' => 'x' ,
-                'users' => $users2,
+                'message' => 'First Player' ,
+                'user' => $users2,
                 'status' => 200
             ]);
         } else {
@@ -139,15 +139,15 @@ class UserController extends Controller
 
         $users = array_reverse($this->createRanking());
 
-        $users1 = array_key_first($users);
+        $users1 = array_key_first($users); 
 
         $users2 = $this->createRanking()[$users1];
         
 
         if (isset($users2)) {
             return response()->json([
-                'message' => 'x' ,
-                'users' => $users2,
+                'message' => 'Last player' ,
+                'user' => $users2,
                 'status' => 200
             ]);
         } else {
@@ -166,7 +166,11 @@ class UserController extends Controller
         $games =  RollDice::all();
         $games = $games->count();
 
+        if($games){
         $averageSuccessRate = round(($gamesWin/$games)*100,2);
+        }else{
+            $averageSuccessRate = 0;
+        }
 
         return $averageSuccessRate;
 
