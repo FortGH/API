@@ -16,11 +16,9 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if(!auth()->user()->admin){
-            return response()->json([
-                'message' => 'Unauthorized'
-            ]);
+            return response(['message' => 'Unauthorized'],403);
         }
         return $next($request);
-
+  
     }
 }

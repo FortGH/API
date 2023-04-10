@@ -31,7 +31,8 @@ class RollDiceController extends Controller
             ]);
         }else {
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized',
+                'status' => 403
             ]);
         }
     }
@@ -69,7 +70,8 @@ class RollDiceController extends Controller
             ]);
         }else {
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized',
+                'status' => 403
             ]);
         }
     }
@@ -102,7 +104,8 @@ class RollDiceController extends Controller
             }
         }else {
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized',
+                'status' => 403
             ]);
         }
     }
