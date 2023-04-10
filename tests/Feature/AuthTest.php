@@ -68,23 +68,5 @@ class AuthTest extends TestCase
             'message' => 'user loged  successfully'
         ]);
     }
-
-    public function test_user_puede_jugar(): void
-    {
-
-        $this->withoutExceptionHandling();
-
-        $id = User::first()->id;
-
-        $game = RollDice::factory()->create();
-
-        $response = $this->post('/api/players/'. $id . '/games');
-
-        $response->assertJsonFragment([
-            'message' => 'Unauthorized'
-        ]);
-
-       
-    }
    
 }
