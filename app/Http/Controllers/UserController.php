@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\RollDice;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\RollDiceController;
 
 
 class UserController extends Controller
@@ -49,12 +50,17 @@ class UserController extends Controller
 
     public function rename(Request $request, $id){
 
+        $userExiste = new RolldiceController;
+        if ($userExiste->userExiste($id)){
+        
         if($id ==  auth()->user()->id){
            
             $user = User::find($id);
 
+
             if($request->name){
                 $data = $request->validate(['name' => 'unique:users']);
+
 
                 $user -> name = $data['name'];
 
@@ -73,6 +79,12 @@ class UserController extends Controller
         }else {
             return response()->json([
                 'message' => 'Unauthorized'
+            ]);
+        }
+        }else {
+            return response()->json([
+                'message' => 'User not found',
+                'status' => 404
             ]);
         }
 
@@ -142,12 +154,13 @@ class UserController extends Controller
 
     public function last()
     {
+        $ranking = $this->createRanking();
 
-        $users = array_reverse($this->createRanking());
+        $users = array_reverse($ranking);
 
         $users1 = array_key_first($users); 
 
-        $users2 = $this->createRanking()[$users1];
+        $users2 = $users[$users1];
         
 
         if (isset($users2)) {
